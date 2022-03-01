@@ -3,27 +3,78 @@
  */
 package DND;
 
-import java.awt.event.*;
-import javax.swing.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
+
+import org.apache.tika.exception.TikaException;
+// Importing Apache POI classes
+import org.apache.tika.metadata.Metadata;
+import org.apache.tika.parser.ParseContext;
+import org.apache.tika.parser.pdf.PDFParser;
+import org.apache.tika.sax.BodyContentHandler;
+import org.xml.sax.SAXException;
 
 public class App {
     public static void main(String[] args) {
-        JFrame f = new JFrame("Button Example");
-        final JTextField tf = new JTextField();
-        tf.setBounds(50, 50, 150, 20);
+        // Create a content handler
+        BodyContentHandler contenthandler = new BodyContentHandler();
 
-        JButton b = new JButton("Click Here");
-        b.setBounds(50, 100, 95, 30);
-        b.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                tf.setText("Welcome to Javatpoint.");
-            }
-        });
+        // Create a file in local directory
+        File file = new File("C:/Users/thoma/Documents/School/Players Handbook.pdf");
 
-        f.add(b);
-        f.add(tf);
-        f.setSize(400, 400);
-        f.setLayout(null);
-        f.setVisible(true);
+        try (// Create a file input stream
+             // on specified path with the created file
+            FileInputStream fstream = new FileInputStream(file)) {
+            // Create an object of type Metadata to use
+            Metadata data = new Metadata();
+
+            // Create a context parser for the pdf document
+            ParseContext context = new ParseContext();
+
+            // PDF document can be parsed using the PDFparser
+            // class
+            PDFParser pdfparser = new PDFParser();
+
+            // Method parse invoked on PDFParser class
+            pdfparser.parse(fstream, contenthandler, data, context);
+        } catch (IOException | TikaException | SAXException e) {
+            // Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        JPanel middlePanel = new JPanel();
+        middlePanel.setBorder(new TitledBorder(new EtchedBorder(), "Display Area"));
+
+        // create the middle panel components
+
+        JTextArea display = new JTextArea(50, 50);
+        display.setEditable(false); // set textArea non-editable\
+        display.append(contenthandler.toString());
+        JScrollPane scroll = new JScrollPane(display);
+        scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        // scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+
+        // Add Textarea in to middle panel
+        middlePanel.add(scroll);
+
+        // My code
+        JFrame frame = new JFrame();
+        frame.add(middlePanel);
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Printing the contents of the pdf document
+        // using toString() method in java
+        // System.out.println("Extracting contents :" + contenthandler.toString());
     }
 }
