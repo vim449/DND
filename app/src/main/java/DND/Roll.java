@@ -26,7 +26,6 @@ public class Roll {
             modifier = Integer.valueOf(rollString.split("\\+", -1)[1]);
         }
         int roll = 0;
-        int change = 0;
         for (int i = 0; i < Integer.valueOf(dice[0]); i++) {
             roll += (random.nextInt(Integer.valueOf(dice[1])) + 1);
         }
