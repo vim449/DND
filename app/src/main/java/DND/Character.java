@@ -3,6 +3,17 @@ package DND;
 import java.util.Hashtable;
 import java.util.Vector;
 public class Character {
+  public enum Alignment {
+    LAWFUL_GOOD,
+    LAWFUL_NEUTRAL,
+    LAWFUL_EVIL,
+    CHAOTIC_GOOD,
+    CHAOTIC_NETRUAL,
+    CHAOTIC_EVIL,
+    NEUTRAL,
+    NEUTRAL_GOOD,
+    NEUTRAL_EVIL
+  }
   private String dndclass;
   private String subclass;
   private String race;       // TODO, make a custom class for this
