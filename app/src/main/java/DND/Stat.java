@@ -1,0 +1,10 @@
+package DND;
+
+public enum Stat {
+  STRENGTH,
+  CONSTITUTION,
+  DEXTERITY,
+  INTELLIGENCE,
+  WISDOM,
+  CHARISMA
+}
