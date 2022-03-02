@@ -3,44 +3,46 @@ package DND;
 import java.util.Hashtable;
 import java.util.Vector;
 public class Character {
-  String dndclass; // TODO, make a custom class for this
-  String subclass;
-  String race;       // TODO, make a custom class for this
-  String background; // TODO, make a custom class for this
-  String ideals;
-  String bonds;
-  String traits;
-  String flaws;
-  String name;
-  short age;
-  short height; // inches
-  Alignment alignment;
-  int experience;
-  byte proficiency_bonus;
+  private String dndclass;
+  private String subclass;
+  private String race;       // TODO, make a custom class for this
+  private String background; // TODO, make a custom class for this
+  private String ideals;
+  private String bonds;
+  private String traits;
+  private String flaws;
+  private String name;
+  private short age;
+  private short height; // inches
+  private Alignment alignment;
+  private int experience;
+  private byte proficiency_bonus;
 
-  Hashtable<Stat, Byte> stats = new Hashtable<>();
-  Hashtable<Stat, Byte> modifiers = new Hashtable<>();
-  byte AC;
-  byte initiative;
-  boolean inspiration; // rn, only level 1 characters will be supported, so this
-                       // will always be null
-  String hitdice;      // dice class?
-  short walkSpeed;
-  short flySpeed;
-  short swimSpeed;
-  byte[] spellSlots = new byte[9];
-  short spellsKnown;
-  byte prepareCount;
-  Vector<String> cantrips = new Vector<String>(0);
-  Vector<Vector<String>> spells = new Vector<Vector<String>>(0);
+  private Hashtable<Stat, Byte> stats = new Hashtable<>();
+  private Hashtable<Stat, Byte> modifiers = new Hashtable<>();
+  private byte AC;
+  private byte initiative;
+  private boolean inspiration; // rn, only level 1 characters will be supported,
+                               // so this will always be null
+  private String hitdice;      // dice class?
+  private short walkSpeed;
+  private short flySpeed;
+  private short swimSpeed;
 
-  Hashtable<String, Byte> abilities = new Hashtable<>();
-  Hashtable<String, Profs> ability_proficiences = new Hashtable<>();
-  // I'm not sold on storing passive stats as fields
-  Hashtable<String, Byte> passives = new Hashtable<>();
-  String[] proficiencies;
-  String[] equipment;
-  String[] features;
-  short maxhp;
-  int gp;
+  private byte[] spellSlots = new byte[9];
+  private short spellsKnown;
+  private byte prepareCount;
+  private Vector<String> cantrips = new Vector<String>(0);
+  private Vector<Vector<String>> spells = new Vector<Vector<String>>(0);
+
+  private Hashtable<String, Byte> abilities = new Hashtable<>();
+  private Hashtable<String, Profs> ability_proficiences =
+      new Hashtable<>(); // I'm not sold on storing passive stats as fields
+  private Hashtable<String, Byte> passives = new Hashtable<>();
+  private Hashtable<Stat, Profs> saving_throws = new Hashtable<>();
+  private String[] proficiencies;
+  private String[] equipment;
+  private String[] features;
+  private short maxhp;
+  private int gp;
 }
