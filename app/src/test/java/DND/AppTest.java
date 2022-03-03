@@ -6,20 +6,11 @@ package DND;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-
 class pdfTest {
-    PdfParse pdf;
-
-    @BeforeEach
-    void setUp() {
-        pdf = new PdfParse("C:/Users/thoma/Documents/School/Players Handbook.pdf");
-    }
 
     @Test
-    @DisplayName("Test PDF Output")
     void pdf() {
-
+        PdfParse pdf = new PdfParse("D&D 5e - Players Handbook.pdf");
+        pdf.reuturnObject();
     }
 }

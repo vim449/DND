@@ -2,6 +2,7 @@ package DND;
 
 import java.util.Hashtable;
 import java.util.Vector;
+
 public class Character {
   public enum Alignment {
     LAWFUL_GOOD,
@@ -14,9 +15,10 @@ public class Character {
     NEUTRAL_GOOD,
     NEUTRAL_EVIL
   }
+
   private String dndclass;
   private String subclass;
-  private String race;       // TODO, make a custom class for this
+  private String race; // TODO, make a custom class for this
   private String background; // TODO, make a custom class for this
   private String ideals;
   private String bonds;
@@ -35,7 +37,7 @@ public class Character {
   private byte initiative;
   private boolean inspiration; // rn, only level 1 characters will be supported,
                                // so this will always be null
-  private String hitdice;      // dice class?
+  private String hitdice; // dice class?
   private short walkSpeed;
   private short flySpeed;
   private short swimSpeed;
@@ -47,8 +49,8 @@ public class Character {
   private Vector<Vector<String>> spells = new Vector<Vector<String>>(0);
 
   private Hashtable<String, Byte> abilities = new Hashtable<>();
-  private Hashtable<String, Profs> ability_proficiences =
-      new Hashtable<>(); // I'm not sold on storing passive stats as fields
+  private Hashtable<String, Profs> ability_proficiences = new Hashtable<>(); // I'm not sold on storing passive stats as
+                                                                             // fields
   private Hashtable<String, Byte> passives = new Hashtable<>();
   private Hashtable<Stat, Profs> saving_throws = new Hashtable<>();
   private String[] proficiencies;
