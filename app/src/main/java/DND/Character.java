@@ -52,8 +52,8 @@ public class Character {
   private Hashtable<String, Byte> passives = new Hashtable<>();
   private Hashtable<Stat, Profs> saving_throws = new Hashtable<>();
   private String[] proficiencies;
-  private String[] equipment;
-  private String[] features;
+  private Equipment[] equipment;
+  private Feature[] features;
   private short maxhp;
   private int gp;
 }
