@@ -6,9 +6,20 @@ package DND;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-class AppTest {
-    @Test void appHasAGreeting() {
-        App classUnderTest = new App();
-        assertNotNull(classUnderTest.getGreeting(), "app should have a greeting");
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+
+class pdfTest {
+    PdfParse pdf;
+
+    @BeforeEach
+    void setUp() {
+        pdf = new PdfParse("C:/Users/thoma/Documents/School/Players Handbook.pdf");
+    }
+
+    @Test
+    @DisplayName("Test PDF Output")
+    void pdf() {
+
     }
 }
