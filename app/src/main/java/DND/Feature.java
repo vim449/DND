@@ -9,7 +9,6 @@ public class Feature {
     ROLLED_SHORT,
     ROLLED_DAY,
     NULL
-
   }
 
   private String name;
@@ -18,7 +17,7 @@ public class Feature {
   private int uses;
   private Rest regainCondition;
   private String regainConditionRoll; // only used if the regain condition has
-                                      // to occur a speciic number of times
+  // to occur a specific number of times
 
   public Feature(String name, String descriptionText, int level, int uses,
                  Rest regainCondition) {
