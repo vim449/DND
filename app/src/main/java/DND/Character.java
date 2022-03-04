@@ -45,6 +45,8 @@ public class Character {
   private byte[] spellSlots = new byte[9];
   private short spellsKnown;
   private byte prepareCount;
+  private byte spellDC;
+  private byte spellAttack;
   private Vector<String> cantrips = new Vector<String>(0);
   private Vector<Vector<String>> spells = new Vector<Vector<String>>(0);
 
