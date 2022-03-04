@@ -16,7 +16,7 @@ public class DNDClass {
   private Ability[] skillProficiencyOptions; // What options do they have for
   // skill proficiencies?
 
-  private boolean spells;        // Are they a spellcaster
+  private int casting;           // half, full, third caster
   private boolean prepareSpells; // Do they have to prepare spells
   private boolean knowSpells; // Do they have a particular list of spells known
 
@@ -28,7 +28,7 @@ public class DNDClass {
 
   public DNDClass(char[] name, Feature[] features, int hitDie,
                   Hashtable<Stat, Boolean> saves, int skillProficiencyNum,
-                  String[] skillProficiencyOptions, boolean spells,
+                  String[] skillProficiencyOptions, int casting,
                   boolean prepareSpells, boolean knowSpells, Stat mainStat) {
 
     this.name = name;
