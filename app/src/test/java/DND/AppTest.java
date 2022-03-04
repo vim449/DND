@@ -21,25 +21,25 @@ class AppTest {
   @Test
   @DisplayName("Basic roll test")
   public void basicRoll() {
-    try {
-      Roll rollDice = new Roll(1);
-      int roll = rollDice.roll("1d6");
-      System.out.println(roll);
-      assertEquals(4, roll);
-    } catch (FormatException e) {
-      e.printStackTrace();
-    }
+    Roll rollDice = new Roll(1);
+    int roll = rollDice.roll("1d6");
+    System.out.println(roll);
+    assertEquals(4, roll);
   }
 
   @Test
   @DisplayName("Multi-Die test")
   public void complexRoll() {
     Roll dice = new Roll(1);
-    try {
-      int roll = dice.roll("5d8");
-      assertEquals(17, roll)
-    } catch (FormatException e) {
-      e.printStackTrace();
-    }
+    int roll = dice.roll("5d8");
+    assertEquals(17, roll);
+  }
+
+  @Test
+  @DisplayName("Modifier roll test")
+  public void modRoll() {
+    Roll dice = new Roll(1);
+    int roll = dice.roll("1d6+4");
+    assertEquals(8, roll);
   }
 }
