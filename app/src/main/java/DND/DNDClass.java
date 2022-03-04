@@ -26,7 +26,7 @@ public class DNDClass {
   // level of spell per level of character
   private Stat mainStat;
 
-  public DNDClass(String name, Feature[] features, int hitDie,
+  public DNDClass(char[] name, Feature[] features, int hitDie,
                   Hashtable<Stat, Boolean> saves, int skillProficiencyNum,
                   String[] skillProficiencyOptions, boolean spells,
                   boolean prepareSpells, boolean knowSpells, Stat mainStat) {
