@@ -1,28 +1,32 @@
 package DND;
 
 public enum Ability {
-  ACROBATICS(Stats.DEXTERITY),
-  ANIMAL_HANDLING(Stats.WISDOM),
-  ARCANA(Stats.INTELLIGENCE),
-  ATHLETICS(Stats.Strength),
-  DECEPTION(Stats.CHARISMA),
-  HISTORY(Stats.INTELLIGENCE),
-  INSIGHT(Stats.WISDOM),
-  INTIMIDATION(Stats.CHARISMA),
-  INVESTIGATION(Stats.WISDOM),
-  MEDICINE(Stats.WISDOM),
-  NATURE(Stats.INTELLIGENCE),
-  PERCEPTION(Stats.WISDOM),
-  PERFORMANCE(Stats.CHARISMA),
-  PERSUASION(Stats.CHARISMA),
-  RELIGION(Stats.INTELLIGENCE),
-  SLEIGHT_OF_HAND(Stats.CHARISMA),
-  STEALTH(Stats.DEXTERITY),
-  SURVIVAL(Stats.WISDOM);
+    ACROBATICS(Stat.DEXTERITY),
+    ANIMAL_HANDLING(Stat.WISDOM),
+    ARCANA(Stat.INTELLIGENCE),
+    ATHLETICS(Stat.STRENGTH),
+    DECEPTION(Stat.CHARISMA),
+    HISTORY(Stat.INTELLIGENCE),
+    INSIGHT(Stat.WISDOM),
+    INTIMIDATION(Stat.CHARISMA),
+    INVESTIGATION(Stat.WISDOM),
+    MEDICINE(Stat.WISDOM),
+    NATURE(Stat.INTELLIGENCE),
+    PERCEPTION(Stat.WISDOM),
+    PERFORMANCE(Stat.CHARISMA),
+    PERSUASION(Stat.CHARISMA),
+    RELIGION(Stat.INTELLIGENCE),
+    SLEIGHT_OF_HAND(Stat.CHARISMA),
+    STEALTH(Stat.DEXTERITY),
+    SURVIVAL(Stat.WISDOM);
 
-  private Stat stat;
+    private Stat stat;
 
-  public Stat getStat() { return this.stat; }
+    public Stat getStat() {
+        return this.stat;
+    }
 
-  private Ability(Stat stat) { this.stat = stat; }
+    private Ability(Stat stat) {
+        this.stat = stat;
+    }
 }

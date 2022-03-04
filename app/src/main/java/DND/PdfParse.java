@@ -2,10 +2,8 @@ package DND;
 
 import java.io.IOException;
 import java.util.Hashtable;
-
 import com.lowagie.text.pdf.PdfReader;
 import com.lowagie.text.pdf.parser.PdfTextExtractor;
-
 import java.util.regex.*;
 
 public class PdfParse {
@@ -16,7 +14,9 @@ public class PdfParse {
         this.filepath = inputFilePath;
     }
 
-    public Hashtable<String, Integer> getClasses(int tableOfContentsPage) {
+    public Hashtable<String, Integer> getClassesTable(int tableOfContentsPage) {
+
+        //read in a page number from the pdf
         String pdfText = "";
         try {
             PdfReader reader = new PdfReader(filepath);
@@ -26,7 +26,7 @@ public class PdfParse {
             e.printStackTrace();
         }
 
-        // stip the string off all whitespace and periods
+        // strip the string off all whitespace and periods
         pdfText = pdfText.replaceAll(" ", "");
         pdfText = pdfText.replaceAll("\\.", "");
 
@@ -36,6 +36,7 @@ public class PdfParse {
 
         // check to see if there is a match
         if (classes.find()) {
+            //grabbing the string of all the classes from the pdf page text
             String classesString = classes.group(0);
 
             // create the regex for parsing the classes string

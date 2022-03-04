@@ -10,36 +10,36 @@ import org.junit.jupiter.api.Test;
 
 class AppTest {
 
-  @Test
-  @DisplayName("Pdf Parsing")
-  void pdf() {
-    PdfParse pdf = new PdfParse(
-        "C:/Users/thoma/Documents/Java Projects/DND/app/src/main/java/DND/D&D 5e - Players Handbook.pdf");
-    assertNotEquals("", pdf.reuturnObject());
-  }
+    @Test
+    @DisplayName("Pdf Parsing")
+    void pdf() {
+        PdfParse pdf = new PdfParse(
+                "C:/Users/thoma/Documents/Java Projects/DND/app/src/main/java/DND/D&D 5e - Players Handbook.pdf");
+        assertNotEquals(null, pdf.getClassesTable(2));
+    }
 
-  @Test
-  @DisplayName("Basic roll test")
-  public void basicRoll() {
-    Roll rollDice = new Roll(1);
-    int roll = rollDice.roll("1d6");
-    System.out.println(roll);
-    assertEquals(4, roll);
-  }
+    @Test
+    @DisplayName("Basic roll test")
+    public void basicRoll() {
+        Roll rollDice = new Roll(1);
+        int roll = rollDice.roll("1d6");
+        System.out.println(roll);
+        assertEquals(4, roll);
+    }
 
-  @Test
-  @DisplayName("Multi-Die test")
-  public void complexRoll() {
-    Roll dice = new Roll(1);
-    int roll = dice.roll("5d8");
-    assertEquals(17, roll);
-  }
+    @Test
+    @DisplayName("Multi-Die test")
+    public void complexRoll() {
+        Roll dice = new Roll(1);
+        int roll = dice.roll("5d8");
+        assertEquals(17, roll);
+    }
 
-  @Test
-  @DisplayName("Modifier roll test")
-  public void modRoll() {
-    Roll dice = new Roll(1);
-    int roll = dice.roll("1d6+4");
-    assertEquals(8, roll);
-  }
+    @Test
+    @DisplayName("Modifier roll test")
+    public void modRoll() {
+        Roll dice = new Roll(1);
+        int roll = dice.roll("1d6+4");
+        assertEquals(8, roll);
+    }
 }

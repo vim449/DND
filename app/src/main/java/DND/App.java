@@ -5,7 +5,5 @@ package DND;
 
 public class App {
     public static void main(String[] args) {
-        PdfParse pdf = new PdfParse("C:/Users/thoma/Documents/Java Projects/DND/app/src/main/java/DND/D&D 5e - Players Handbook.pdf");
-        pdf.reuturnObject();
     }
 }
