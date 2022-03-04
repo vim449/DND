@@ -13,7 +13,7 @@ public class Roll {
         random = new Random(seed);
     }
 
-    int roll(String rollString) throws FormatException {
+    public int roll(String rollString) throws FormatException {
         rollString = rollString.trim();
         if (!rollString.contains("d")) {
             throw new FormatException("dice rolls must be of the form XdY or XdY+Z");
