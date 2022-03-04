@@ -7,13 +7,13 @@ public class DNDClass {
 
   // fields to store class-specific information
 
-  private String name;
+  private char[] name;
   private Feature[] features;
   private String hitDie;
   private Hashtable<Stat, Profs> saves = new Hashtable<>();
 
-  private int skillProficiencyNum;          // how many skill proficiencies
-  private String[] skillProficiencyOptions; // What options do they have for
+  private int skillProficiencyNum;           // how many skill proficiencies
+  private Ability[] skillProficiencyOptions; // What options do they have for
   // skill proficiencies?
 
   private boolean spells;        // Are they a spellcaster

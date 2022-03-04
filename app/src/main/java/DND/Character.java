@@ -20,11 +20,11 @@ public class Character {
   private String subclass;
   private String race;       // TODO, make a custom class for this
   private String background; // TODO, make a custom class for this
-  private String ideals;
-  private String bonds;
-  private String traits;
-  private String flaws;
-  private String name;
+  private char[] ideals;
+  private char[] bonds;
+  private char[] traits;
+  private char[] flaws;
+  private char[] name;
   private short age;
   private short height; // inches
   private Alignment alignment;
@@ -62,8 +62,8 @@ public class Character {
   private short maxhp;
   private int gp;
 
-  public Character(String dndclass, String race, String background, String name,
-                   Alignment alignment) {
+  public Character(DNDClass dndclass, String race, String background,
+                   char[] name, Alignment alignment) {
     this.dndclass = dndclass;
     this.race = race;
     this.background = background;
