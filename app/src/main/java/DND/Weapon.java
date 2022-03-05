@@ -5,5 +5,6 @@ public class Weapon extends Equipment {
   byte hands;
   String features;
   Type type;
-  String damage;
+  String dice;
+  // TODO: silvered or other boolean status?
 }

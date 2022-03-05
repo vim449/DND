@@ -28,4 +28,7 @@ public class Roll {
 
     return roll + modifier;
   }
+
+  // TODO: hp rolls (if lower than half, take half)
+  // TODO: drop low
 }

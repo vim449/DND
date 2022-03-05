@@ -20,13 +20,9 @@ public enum Ability {
   STEALTH(Stat.DEXTERITY),
   SURVIVAL(Stat.WISDOM);
 
-    private Stat stat;
+  private Stat stat;
 
-    public Stat getStat() {
-        return this.stat;
-    }
+  public Stat getStat() { return this.stat; }
 
-    private Ability(Stat stat) {
-        this.stat = stat;
-    }
+  private Ability(Stat stat) { this.stat = stat; }
 }

@@ -1,6 +1,5 @@
 package DND;
 
-import java.util.Dictionary;
 import java.util.Hashtable;
 
 public class DNDClass {
@@ -25,6 +24,11 @@ public class DNDClass {
   private int[][] spellsKnownTable; // 2d array containing spells known per
   // level of spell per level of character
   private Stat mainStat;
+  // TODO: format for starting gold...
+  // TODO: starting equipment
+  // TODO: variable for limited use class features like infusions, metagmagics,
+  // and invocations?
+  // TODO: multiclass required stats?
 
   public DNDClass(char[] name, Feature[] features, String hitDie,
                   Hashtable<Stat, Profs> saves, int skillProficiencyNum,

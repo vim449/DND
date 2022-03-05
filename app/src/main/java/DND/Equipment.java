@@ -7,4 +7,5 @@ public class Equipment {
   String description;
   float weight;
   boolean isMagic;
+  // TODO: methods
 }

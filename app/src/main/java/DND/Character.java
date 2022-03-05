@@ -37,7 +37,7 @@ public class Character {
   private byte initiative;
   private boolean inspiration; // rn, only level 1 characters will be supported,
   // so this will always be null
-  private String hitdice; // dice class?
+  private String hitDice; // dice class?
   private short walkSpeed;
   private short flySpeed;
   private short swimSpeed;
@@ -59,7 +59,7 @@ public class Character {
   private String[] proficiencies;
   private Equipment[] equipment;
   private Feature[] features;
-  private short maxhp;
+  private short maxHP;
   private int gp;
 
   public Character(DNDClass dndclass, String race, String background,
@@ -72,6 +72,8 @@ public class Character {
 
     experience = 0;
     proficiencyBonus = 2;
+
+    // TODO: walkspeed (aaracrokra gives flyspeed, so parse race too)
     swimSpeed = 0;
     flySpeed = 0;
     inspiration = false;
@@ -92,9 +94,15 @@ public class Character {
     AC = (byte)(10 + modifiers.get(Stat.DEXTERITY));
     initiative = modifiers.get(Stat.DEXTERITY);
 
-    hitdice = dndclass.getHitDice();
+    hitDice = dndclass.getHitDice();
     saveProficiencies = dndclass.getSaveProfs();
     calcSaves();
+
+    // TODO: Ability, ability profs, passive abilities
+    maxHP = (byte)(Byte.valueOf(hitDice.substring(hitDice.indexOf("d") + 1)) +
+                   modifiers.get(Stat.CONSTITUTION));
+
+    // TODO: equipment, proficiencies, features, and gp
   }
 
   private void calcModifiers() {
