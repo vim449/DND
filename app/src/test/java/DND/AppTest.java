@@ -13,8 +13,8 @@ class AppTest {
     @Test
     @DisplayName("Pdf Parsing")
     void pdf() {
-        PdfParse pdf = new PdfParse(
-                "C:/Users/thoma/Documents/Java Projects/DND/app/src/main/java/DND/D&D 5e - Players Handbook.pdf");
+        PdfParse pdf = new PdfParse("C:/Users/thoma/Documents/School/D&D 5e - Players Handbook.pdf");
+        System.out.println(pdf.getClassesTable(2));
         assertNotEquals(null, pdf.getClassesTable(2));
     }
 
