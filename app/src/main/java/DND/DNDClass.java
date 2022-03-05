@@ -26,23 +26,22 @@ public class DNDClass {
   // level of spell per level of character
   private Stat mainStat;
 
-  public DNDClass(char[] name, Feature[] features, int hitDie,
-                  Hashtable<Stat, Boolean> saves, int skillProficiencyNum,
-                  String[] skillProficiencyOptions, int casting,
+  public DNDClass(char[] name, Feature[] features, String hitDie,
+                  Hashtable<Stat, Profs> saves, int skillProficiencyNum,
+                  Ability[] skillProficiencyOptions, int casting,
                   boolean prepareSpells, boolean knowSpells, Stat mainStat) {
 
     this.name = name;
     this.features = features;
     this.hitDie = hitDie;
-    this.saves = saves;
+    this.casting = casting;
     this.skillProficiencyNum = skillProficiencyNum;
     this.skillProficiencyOptions = skillProficiencyOptions;
-    this.spells = spells;
     this.prepareSpells = prepareSpells;
     this.knowSpells = knowSpells;
     this.mainStat = mainStat;
   }
 
   public String getHitDice() { return this.hitDie; }
-  public Hashtable<Stat, Profs> getSaveProfs() { return this.saves }
+  public Hashtable<Stat, Profs> getSaveProfs() { return this.saves; }
 }
