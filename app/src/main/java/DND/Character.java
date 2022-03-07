@@ -18,7 +18,7 @@ public class Character {
 
   private DNDClass dndclass;
   private String subclass;
-  private String race;       // TODO, make a custom class for this
+  private Race race;         // TODO, make a custom class for this
   private String background; // TODO, make a custom class for this
   private char[] ideals;
   private char[] bonds;
@@ -62,8 +62,8 @@ public class Character {
   private short maxHP;
   private int gp;
 
-  public Character(DNDClass dndclass, String race, String background,
-                   char[] name, Alignment alignment) {
+  public Character(DNDClass dndclass, Race race, String background, char[] name,
+                   Alignment alignment) {
     this.dndclass = dndclass;
     this.race = race;
     this.background = background;
@@ -74,6 +74,7 @@ public class Character {
     proficiencyBonus = 2;
 
     // TODO: walkspeed (aaracrokra gives flyspeed, so parse race too)
+    walkSpeed = race.getSpeed();
     swimSpeed = 0;
     flySpeed = 0;
     inspiration = false;
@@ -90,6 +91,7 @@ public class Character {
     age = 0;
     height = 0;
 
+    // TODO: get stats
     calcModifiers();
     AC = (byte)(10 + modifiers.get(Stat.DEXTERITY));
     initiative = modifiers.get(Stat.DEXTERITY);
