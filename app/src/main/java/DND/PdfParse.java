@@ -221,7 +221,24 @@ public class PdfParse {
             e.printStackTrace();
         }
         // start to parse the spells string
-        System.out.println(spellString);
+
+        // take the end off of the string it is not needed
+        Pattern p = Pattern.compile("\\R(.*)$");
+        Matcher matches = p.matcher(spellString);
+        if (matches.find()) {
+            spellString = spellString.replace(matches.group(0), "");
+        }
+
+        // preform some black magic regex to get a vector of vectors of leves of spells
+        p = Pattern.compile("\\R(.*?)[0-9]", Pattern.DOTALL);
+        matches = p.matcher(spellString);
+        while (matches.find()) {
+            for (int i = 0; i < matches.groupCount(); i++) {
+                System.out.println(matches.group(i)); // TODO: add this to a vector of vectors @yomas000
+            }
+        }
+
+        // System.out.println(spellString);
         return spellList;
     }
 }
