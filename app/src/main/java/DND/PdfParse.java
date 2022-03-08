@@ -2,6 +2,8 @@ package DND;
 
 import java.io.IOException;
 import java.util.Hashtable;
+import java.util.Vector;
+
 import com.lowagie.text.pdf.PdfReader;
 import com.lowagie.text.pdf.parser.PdfTextExtractor;
 import java.util.regex.*;
@@ -183,5 +185,43 @@ public class PdfParse {
             }
         }
         return spellTable;
+    }
+
+    public Vector<String> getSpellTierList(int startingPageNum, String className) {
+        // intialize variables
+        String pdfText = "";
+        int pageNum = startingPageNum;
+        String spellString = "";
+        Vector<String> spellList = new Vector<String>(2);
+
+        try {
+            // Read in pdf and extract text
+            PdfReader reader = new PdfReader(filepath);
+            PdfTextExtractor text = new PdfTextExtractor(reader);
+
+            // expand the className so it matches with the text
+            className = className.replace("", " ").trim();
+            // complie the regex
+            Pattern p = Pattern.compile(className + "  Spells(.*?)Spells", Pattern.DOTALL);
+            Matcher matches;
+            boolean keepGoing = true;
+
+            // loop to keep reading in information untill found a match
+            do {
+                pdfText += text.getTextFromPage(pageNum); // grab text from the page
+                matches = p.matcher(pdfText); // try to match it
+                // if found a match exit the loop and store the matched string
+                if (matches.find()) {
+                    spellString = matches.group(0);
+                    keepGoing = false;
+                }
+                pageNum++; // increment to the next page
+            } while (keepGoing);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // start to parse the spells string
+        System.out.println(spellString);
+        return spellList;
     }
 }
