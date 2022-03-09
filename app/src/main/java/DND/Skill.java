@@ -1,6 +1,6 @@
 package DND;
 
-public enum Ability {
+public enum Skill {
   ACROBATICS(Stat.DEXTERITY),
   ANIMAL_HANDLING(Stat.WISDOM),
   ARCANA(Stat.INTELLIGENCE),
@@ -24,5 +24,5 @@ public enum Ability {
 
   public Stat getStat() { return this.stat; }
 
-  private Ability(Stat stat) { this.stat = stat; }
+  private Skill(Stat stat) { this.stat = stat; }
 }
