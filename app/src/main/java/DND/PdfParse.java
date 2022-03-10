@@ -238,21 +238,16 @@ public class PdfParse {
         while (matches.find()) {
             String spells = "";
             spells = matches.group(1);
-            // System.out.println(spells);
             Pattern p1 = Pattern.compile("^(.*?)\\R", Pattern.MULTILINE);
             Matcher matches1 = p1.matcher(spells);
             Vector<String> listOfSpells = new Vector<String>(5);
 
             while (matches1.find()) {
-                // System.out.println("Group " + 1 + ": " + matches1.group(1));
                 listOfSpells.add(matches1.group(1)); // TODO: clean up the string from random spacing @yomas000
             }
-            // System.out.println(listOfSpells);
             spellList.add(listOfSpells);
         }
         spellList.remove(0);
-        System.out.println(spellList);
-
         return spellList;
 
     }
