@@ -190,7 +190,7 @@ public class PdfParse {
     public Vector<Vector<String>> getSpellTierList(int startingPageNum, String className) {
         // intialize variables
         String pdfText = "";
-        int pageNum = startingPageNum;
+        int pageNum = startingPageNum; // TODO: get the correct page num @yomas000
         String spellString = "";
 
         try {
@@ -232,7 +232,7 @@ public class PdfParse {
         // preform some black magic regex to get a vector of vectors of leves of spells
         p = Pattern.compile("\\R(.*?)[0-9]", Pattern.DOTALL);
         matches = p.matcher(spellString);
-        
+
         Vector<Vector<String>> spellList = new Vector<Vector<String>>(5);
 
         while (matches.find()) {
@@ -245,9 +245,9 @@ public class PdfParse {
 
             while (matches1.find()) {
                 // System.out.println("Group " + 1 + ": " + matches1.group(1));
-                listOfSpells.add(matches1.group(1));
+                listOfSpells.add(matches1.group(1)); // TODO: clean up the string from random spacing @yomas000
             }
-           // System.out.println(listOfSpells);
+            // System.out.println(listOfSpells);
             spellList.add(listOfSpells);
         }
         spellList.remove(0);
