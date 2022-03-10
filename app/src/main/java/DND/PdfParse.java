@@ -201,7 +201,7 @@ public class PdfParse {
             // expand the className so it matches with the text
             className = className.replace("", " ").trim();
             // complie the regex
-            Pattern p = Pattern.compile(className + "  Spells(.*?)Spells", Pattern.DOTALL);
+            Pattern p = Pattern.compile(className + "  Spells(.*?)Spell", Pattern.DOTALL);
             Matcher matches;
             boolean keepGoing = true;
 
