@@ -190,7 +190,7 @@ public class PdfParse {
     public Vector<Vector<String>> getSpellTierList(int startingPageNum, String className) {
         // intialize variables
         String pdfText = "";
-        int pageNum = startingPageNum; // TODO: get the correct page num @yomas000
+        int pageNum = startingPageNum - 50;
         String spellString = "";
 
         try {
@@ -241,14 +241,36 @@ public class PdfParse {
             Pattern p1 = Pattern.compile("^(.*?)\\R", Pattern.MULTILINE);
             Matcher matches1 = p1.matcher(spells);
             Vector<String> listOfSpells = new Vector<String>(5);
+            String string = "";
 
             while (matches1.find()) {
-                listOfSpells.add(matches1.group(1)); // TODO: clean up the string from random spacing @yomas000
+                string = matches1.group(1);
+                string = string.replace("  ", "HH"); // this is fixing the random spacing issue
+                string = string.replace(" ", "");
+                string = string.replace("HH", " ");
+                string = string.trim();
+                listOfSpells.add(string);
             }
             spellList.add(listOfSpells);
         }
         spellList.remove(0);
         return spellList;
 
+    }
+
+    public String getSpellInfo(int startingPage, String spell) {
+
+        String pdfText = "";
+        try {
+            PdfReader reader = new PdfReader(filepath);
+            PdfTextExtractor text = new PdfTextExtractor(reader);
+            pdfText = text.getTextFromPage(193);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(pdfText);
+
+        return spell;
     }
 }
