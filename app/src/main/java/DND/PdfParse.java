@@ -187,12 +187,11 @@ public class PdfParse {
         return spellTable;
     }
 
-    public Vector<String> getSpellTierList(int startingPageNum, String className) {
+    public Vector<Vector<String>> getSpellTierList(int startingPageNum, String className) {
         // intialize variables
         String pdfText = "";
         int pageNum = startingPageNum;
         String spellString = "";
-        Vector<String> spellList = new Vector<String>(2);
 
         try {
             // Read in pdf and extract text
@@ -227,18 +226,34 @@ public class PdfParse {
         Matcher matches = p.matcher(spellString);
         if (matches.find()) {
             spellString = spellString.replace(matches.group(0), "");
+            spellString += "\n5"; // add some arbitray number so regex works
         }
 
         // preform some black magic regex to get a vector of vectors of leves of spells
         p = Pattern.compile("\\R(.*?)[0-9]", Pattern.DOTALL);
         matches = p.matcher(spellString);
-        while (matches.find()) {
-            for (int i = 0; i < matches.groupCount(); i++) {
-                System.out.println(matches.group(i)); // TODO: add this to a vector of vectors @yomas000
-            }
-        }
+        
+        Vector<Vector<String>> spellList = new Vector<Vector<String>>(5);
 
-        // System.out.println(spellString);
+        while (matches.find()) {
+            String spells = "";
+            spells = matches.group(1);
+            // System.out.println(spells);
+            Pattern p1 = Pattern.compile("^(.*?)\\R", Pattern.MULTILINE);
+            Matcher matches1 = p1.matcher(spells);
+            Vector<String> listOfSpells = new Vector<String>(5);
+
+            while (matches1.find()) {
+                // System.out.println("Group " + 1 + ": " + matches1.group(1));
+                listOfSpells.add(matches1.group(1));
+            }
+           // System.out.println(listOfSpells);
+            spellList.add(listOfSpells);
+        }
+        spellList.remove(0);
+        System.out.println(spellList);
+
         return spellList;
+
     }
 }
