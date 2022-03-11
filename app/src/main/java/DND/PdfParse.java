@@ -269,6 +269,12 @@ public class PdfParse {
             e.printStackTrace();
         }
 
+        Pattern castingPattern = Pattern.compile("((?<=Casting  Time:).*[0-9]?)");
+        Pattern rangePattern = Pattern.compile("((?<=Range:).*[0-9]?)");
+        Pattern durationPattern = Pattern.compile("((?<=Duration:).*[0-9]?)");
+        Pattern componentsPattern = Pattern.compile("((?<=Components:).*?$|(?<=Components:).*?\\))", Pattern.MULTILINE);
+        Pattern namePattern = Pattern.compile("(^[A-Z]\\s[a-z]+\\s[a-z].*?$).*?(?=^[1-9])",Pattern.MULTILINE | Pattern.DOTALL);
+
         System.out.println(pdfText);
 
         return spell;
