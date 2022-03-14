@@ -3,8 +3,27 @@
  */
 package DND;
 
+import DND.GUI.Gui;
+
+/*
+Control Flow:
+Prompt user for books
+TODO get data from books
+TODO generate objects from data
+TODO ask user for base race, background, class, and optionally subclass
+TODO create character object
+TODO roll stats, apply race bonuses, etc
+TODO other optional rolls
+TODO skill proficiency choice
+TODO starting equipment or gold buy
+TODO other proficiencies and choices
+TODO spell choices
+TODO customization (name, traits, ideals, flaws, etc)
+TODO generate character sheet from character object
+*/
+
 public class App {
     public static void main(String[] args) {
-        
+        Gui.start(args);
     }
 }
