@@ -24,5 +24,6 @@ TODO generate character sheet from character object
 
 public class App {
     public static void main(String[] args) {
+        
     }
 }

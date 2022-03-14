@@ -58,10 +58,6 @@ public class PdfParse {
         return classesTable;
     }
 
-    public void setFilePath(String filepath) {
-        this.filepath = filepath;
-    }
-
     public Hashtable<String, Integer> getRacesPages(int tableOfContentsPage) {
 
         // read in a page number from the pdf
@@ -262,65 +258,8 @@ public class PdfParse {
 
     }
 
-    public static Hashtable<String, String> getSpellInfo(int startingPage, String spell) {
-        int pageNum = startingPage - 20;
-
-        String pdfText = "";
-        Hashtable<String, String> spellInfo = new Hashtable<>();
-        Pattern castingPattern = Pattern.compile("((?<=Casting  Time:).*[0-9]?)");
-        Pattern rangePattern = Pattern.compile("((?<=Range:).*[0-9]?)");
-        Pattern durationPattern = Pattern.compile("((?<=Duration:).*[0-9]?)");
-        Pattern componentsPattern = Pattern.compile("((?<=Components:).*?(?=Duration))", Pattern.DOTALL);
-        Pattern namePattern = Pattern.compile("(^[A-Z]\\s[a-z]+\\s[a-z].*?$).*?(?=^[1-9])",
-                Pattern.MULTILINE | Pattern.DOTALL); // TODO: fix the name regex @yomas000
-
-        Matcher castingMatch = castingPattern.matcher(pdfText);
-        Matcher rangeMatch = rangePattern.matcher(pdfText);
-        Matcher durationMatcher = durationPattern.matcher(pdfText);
-        Matcher comMatcher = componentsPattern.matcher(pdfText);
-        Matcher nameMatcher = namePattern.matcher(pdfText);
-        boolean keepGoing = true;
-
-        try {
-            PdfReader reader = new PdfReader(filepath);
-            PdfTextExtractor text = new PdfTextExtractor(reader);
-            do {
-                pdfText = text.getTextFromPage(pageNum);
-                castingMatch = castingPattern.matcher(pdfText);
-                rangeMatch = rangePattern.matcher(pdfText);
-                durationMatcher = durationPattern.matcher(pdfText);
-                comMatcher = componentsPattern.matcher(pdfText);
-                nameMatcher = namePattern.matcher(pdfText);
-
-                if (nameMatcher.find() && comMatcher.find() && castingMatch.find() && rangeMatch.find()
-                        && durationMatcher.find()) {
-
-                    String pdfSpellName = nameMatcher.group(1).replace(" ", "").trim();
-                    String inputSpellName = spell.replace(" ", "").trim();
-
-                    System.out.println(pdfSpellName + " : " + inputSpellName);
-
-                    if (pdfSpellName.equals(inputSpellName)) {
-                        System.out.println(nameMatcher.group(1) + " " + comMatcher.group(1));
-                        spellInfo.put("Name", nameMatcher.group(1));
-                        spellInfo.put("Casting Time", castingMatch.group(1));
-                        spellInfo.put("Range", rangeMatch.group(1));
-                        spellInfo.put("Components", comMatcher.group(1));
-                        spellInfo.put("Duration", durationMatcher.group(1));
-                    }
-                } else {
-                    keepGoing = false;
-                }
-
-                pageNum++;
-            } while (keepGoing);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return spellInfo;
-    }
-
     // TODO: make a parser for the race info
     // TODO: make a function for class info
+    // TODO: make a function for getting bacground
+    // TODO: Make ka function for getting equitment stats
 }
