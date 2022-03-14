@@ -75,11 +75,7 @@ public class Character {
         flySpeed = 0;
         inspiration = false;
 
-        spellsKnown = 0;
-        prepareCount = 0;
-        spellDC = 0;
-        spellAttack = 0;
-
+        // TODO, roll from Background tables
         traits = null;
         bonds = null;
         flaws = null;
@@ -90,7 +86,7 @@ public class Character {
         height = 0;
         weight = 0;
 
-        rollStats();
+        rollStats(); // TODO: make more interactive
         calcModifiers();
         AC = (byte) (10 + modifiers.get(Stat.DEXTERITY));
         initiative = modifiers.get(Stat.DEXTERITY);
@@ -99,7 +95,13 @@ public class Character {
         saveProficiencies = dndclass.getSaveProfs();
         calcSaves();
 
-        // TODO: Ability, ability profs, passive abilities
+        // TODO, get from class
+        spellsKnown = 0;
+        prepareCount = 0;
+        spellDC = (byte) (8 + proficiencyBonus + modifiers.get(dndclass.getMainStat()));
+        spellAttack = (byte) (proficiencyBonus + modifiers.get(dndclass.getMainStat()));
+
+        // TODO: Skill, skill profs, passive skills
         maxHP = (byte) (Byte.valueOf(hitDice.substring(hitDice.indexOf("d") + 1)) + modifiers.get(Stat.CONSTITUTION));
 
         // TODO: equipment, proficiencies, features, and gp

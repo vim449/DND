@@ -26,7 +26,7 @@ public class DNDClass {
     // of spell per level of character.
     private int[][] spellsKnownTable; // 2d array containing spells known per
     // level of spell per level of character
-    private Stat mainStat;
+    private final Stat mainStat;
     // TODO: format for starting gold...
     // TODO: starting equipment
     // TODO: variable for limited use class features like infusions, metagmagics,
@@ -49,6 +49,10 @@ public class DNDClass {
         this.proficiencies = proficiencies;
     }
 
+    public Stat getMainStat() {
+        return mainStat;
+    }
+
     public String getHitDice() {
         return this.hitDie;
     }
@@ -60,4 +64,5 @@ public class DNDClass {
     public char[] getSubclass() {
         return this.subclass;
     }
+
 }
