@@ -9,17 +9,13 @@ import com.lowagie.text.pdf.parser.PdfTextExtractor;
 import java.util.regex.*;
 
 public class PdfParse {
-    private String filepath = "";
-    private Hashtable<String, Integer> classesTable = new Hashtable<>();
-    private Hashtable<String, Integer> racesTable = new Hashtable<>();
-    private Hashtable<String, Integer> equipmentTable = new Hashtable<>();
-    private Hashtable<String, Integer> spellTable = new Hashtable<>();
+    private static String filepath = "";
 
-    public PdfParse(String inputFilePath) {
-        this.filepath = inputFilePath;
+    public static void setFilepath(String f) {
+        filepath = f;
     }
 
-    public Hashtable<String, Integer> getClassesPages(int tableOfContentsPage) {
+    public static Hashtable<String, Integer> getClassesPages(int tableOfContentsPage) {
 
         // read in a page number from the pdf
         String pdfText = "";
@@ -40,6 +36,7 @@ public class PdfParse {
         Matcher classes = p1.matcher(pdfText);
 
         // check to see if there is a match
+        Hashtable<String, Integer> classesTable = new Hashtable<>();
         if (classes.find()) {
             // grabbing the string of all the classes from the pdf page text
             String classesString = classes.group(0);
@@ -61,7 +58,7 @@ public class PdfParse {
         return classesTable;
     }
 
-    public Hashtable<String, Integer> getRacesPages(int tableOfContentsPage) {
+    public static Hashtable<String, Integer> getRacesPages(int tableOfContentsPage) {
 
         // read in a page number from the pdf
         String pdfText = "";
@@ -77,16 +74,17 @@ public class PdfParse {
         pdfText = pdfText.replaceAll(" ", "");
         pdfText = pdfText.replaceAll("\\.", "");
 
-        // find all the classes in the table of contents
+        // find all the races in the table of contents
         Pattern p1 = Pattern.compile("Races(.*?)Chapter", Pattern.DOTALL);
         Matcher races = p1.matcher(pdfText);
 
         // check to see if there is a match
+        Hashtable<String, Integer> racesTable = new Hashtable<>();
         if (races.find()) {
-            // grabbing the string of all the classes from the pdf page text
+            // grabbing the string of all the races from the pdf page text
             String racesString = races.group(0);
 
-            // create the regex for parsing the classes string
+            // create the regex for parsing the races string
             Pattern p = Pattern.compile("([0-9]+)");
             String strings[] = racesString.split("\\n");
 
@@ -103,7 +101,7 @@ public class PdfParse {
         return racesTable;
     }
 
-    public Hashtable<String, Integer> getEquipmentPages(int tableOfContentsPage) {
+    public static Hashtable<String, Integer> getEquipmentPages(int tableOfContentsPage) {
 
         // read in a page number from the pdf
         String pdfText = "";
@@ -124,6 +122,7 @@ public class PdfParse {
         Matcher equipment = p1.matcher(pdfText);
 
         // check to see if there is a match
+        Hashtable<String, Integer> equipmentTable = new Hashtable<>();
         if (equipment.find()) {
             // grabbing the string of all the classes from the pdf page text
             String eString = equipment.group(0);
@@ -145,7 +144,7 @@ public class PdfParse {
         return equipmentTable;
     }
 
-    public Hashtable<String, Integer> getSpellPages(int tableOfContentsPage) {
+    public static Hashtable<String, Integer> getSpellPages(int tableOfContentsPage) {
 
         // read in a page number from the pdf
         String pdfText = "";
@@ -166,6 +165,7 @@ public class PdfParse {
         Matcher spells = p1.matcher(pdfText);
 
         // check to see if there is a match
+        Hashtable<String, Integer> spellTable = new Hashtable<>();
         if (spells.find()) {
             // grabbing the string of all the classes from the pdf page text
             String spellString = spells.group(0);
@@ -187,7 +187,7 @@ public class PdfParse {
         return spellTable;
     }
 
-    public Vector<Vector<String>> getSpellTierList(int startingPageNum, String className) {
+    public static Vector<Vector<String>> getSpellTierList(int startingPageNum, String className) {
         // intialize variables
         String pdfText = "";
         int pageNum = startingPageNum - 50;
@@ -258,7 +258,7 @@ public class PdfParse {
 
     }
 
-    public Hashtable<String, String> getSpellInfo(int startingPage, String spell) {
+    public static Hashtable<String, String> getSpellInfo(int startingPage, String spell) {
 
         String pdfText = "";
         Hashtable<String, String> spellInfo = new Hashtable<>();
