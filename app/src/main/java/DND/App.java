@@ -24,6 +24,7 @@ TODO generate character sheet from character object
 
 public class App {
     public static void main(String[] args) {
-        Gui.start(args);
+        PdfParse.setFilepath("C:/Users/thoma/Documents/School/D&D 5e - Players Handbook.pdf");
+        System.out.println(PdfParse.getSpellTierList(188, "Bard"));
     }
 }
