@@ -3,7 +3,7 @@ package DND;
 import java.util.Hashtable;
 import java.util.Vector;
 
-public class DNDClass {
+public class DNDClass implements java.io.Serializable {
 
     // fields to store class-specific information
 
@@ -65,4 +65,7 @@ public class DNDClass {
         return this.subclass;
     }
 
+    public String getName() {
+        return name.toString();
+    }
 }
