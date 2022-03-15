@@ -7,7 +7,7 @@ public class DNDClass implements java.io.Serializable {
 
     // fields to store class-specific information
 
-    private char[] name;
+    private String name;
     private char[] subclass;
     private Feature[] features;
     private String hitDie;
@@ -33,7 +33,7 @@ public class DNDClass implements java.io.Serializable {
     // and invocations?
     // TODO: multiclass required stats?
 
-    public DNDClass(char[] name, Feature[] features, String hitDie, Hashtable<Stat, Profs> saves,
+    public DNDClass(String name, Feature[] features, String hitDie, Hashtable<Stat, Profs> saves,
             int skillProficiencyNum, Skill[] skillProficiencyOptions, int casting, boolean prepareSpells,
             boolean knowSpells, Stat mainStat, Vector<String> proficiencies) {
 
@@ -47,6 +47,11 @@ public class DNDClass implements java.io.Serializable {
         this.knowSpells = knowSpells;
         this.mainStat = mainStat;
         this.proficiencies = proficiencies;
+    }
+
+    public DNDClass(String name, Stat mainStat) {
+        this.name = name;
+        this.mainStat = mainStat;
     }
 
     public Stat getMainStat() {
@@ -66,6 +71,6 @@ public class DNDClass implements java.io.Serializable {
     }
 
     public String getName() {
-        return name.toString();
+        return name;
     }
 }

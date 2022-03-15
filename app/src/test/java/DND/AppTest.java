@@ -42,4 +42,22 @@ class AppTest {
         int roll = dice.roll("1d6+4");
         assertEquals(8, roll);
     }
+
+    @Test
+    @DisplayName("Class Serializer Test")
+    public void serialize() throws Exception {
+        Storage.initializeFileSystem();
+        DNDClass testClass = new DNDClass(("test"), Stat.CONSTITUTION);
+        Storage.storeClass(testClass, true);
+    }
+
+    @Test
+    @DisplayName("Class Deserializer Test")
+    public void deserialize() throws Exception {
+        Storage.initializeFileSystem();
+        DNDClass classTest;
+        classTest = Storage.retrieveClass("test");
+        System.out.println(classTest.getName());
+        System.out.println(classTest.getMainStat());
+    }
 }
