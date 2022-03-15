@@ -6,6 +6,7 @@ import java.util.Vector;
 
 import com.lowagie.text.pdf.PdfReader;
 import com.lowagie.text.pdf.parser.PdfTextExtractor;
+
 import java.util.regex.*;
 
 public class PdfParse {
@@ -55,10 +56,11 @@ public class PdfParse {
                 }
             }
         }
+        classesTable.remove("Classes");
         return classesTable;
     }
 
-    public Hashtable<String, Integer> getRacesPages(int tableOfContentsPage) {
+    public static Hashtable<String, Integer> getRacesPages(int tableOfContentsPage) {
 
         // read in a page number from the pdf
         String pdfText = "";
@@ -98,6 +100,7 @@ public class PdfParse {
                 }
             }
         }
+        racesTable.remove("ChoosingaRace");
         return racesTable;
     }
 
@@ -258,8 +261,32 @@ public class PdfParse {
 
     }
 
-    // TODO: make a parser for the race info
+    public static Vector<Race> getRaceInfo(int startingPage, int stopingPage, String raceName) {
+        Vector<Race> racesVector = new Vector<>();
+        String pdfText = "";
+
+        try {
+            PdfReader reader = new PdfReader(filepath);
+            PdfTextExtractor text = new PdfTextExtractor(reader);
+            int pageNum = startingPage;
+            while (pageNum < stopingPage) {
+                pdfText += text.getTextFromPage(pageNum);
+                pageNum++;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Pattern paraPattern = Pattern.compile("\\. $");
+        Pattern sizePattern = Pattern.compile("^Size.  (.*?)$", Pattern.MULTILINE);
+        Pattern speedPattern = Pattern.compile("^Speed.  (.*?)$", Pattern.MULTILINE);
+        Pattern hightPattern = Pattern.compile("(?<=Age).*?([0-9]+)", Pattern.DOTALL);
+        Pattern attributePattern = Pattern.compile("(?<=\\. [\\r\\n])(.*?\\.)");
+
+        System.out.println(pdfText);
+        return racesVector;
+    }
     // TODO: make a function for class info
     // TODO: make a function for getting bacground
-    // TODO: Make ka function for getting equitment stats
+    // TODO: Make ka function for getting equitment stats(?<=\. [\r\n])(.*?\.)
 }
