@@ -66,14 +66,10 @@ public class PdfParse {
                 }
             }
         }
-        String itemToRemove;
-        switch(info){
-            case Info.Class:
-                itemToRemove = "Classes";
-            case Info.Race:
-                itemToRemove = "ChoosingaRace";
-            case default:
-                itemToRemove = "";
+        String itemToRemove = switch(info){
+            case Info.Class -> "Classes";
+            case Info.Race -> "ChoosingaRace";
+            default -> "";
         }
         if (itemToRemove.length > 0){
             infoTable.remove(itemToRemove);
