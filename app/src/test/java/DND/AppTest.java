@@ -13,9 +13,8 @@ class AppTest {
     @Test
     @DisplayName("Pdf Parsing")
     void pdf() {
-        PdfParse pdf = new PdfParse("C:/Users/thoma/Documents/School/D&D 5e - Players Handbook.pdf");
-        System.out.println(pdf.getSpellPages(2));
-        assertNotEquals(null, pdf.getSpellPages(2));
+        PdfParse.setFilepath("C:/Users/thoma/Documents/School/D&D 5e - Players Handbook.pdf");
+        assertNotEquals(null, PdfParse.getSpellPages(2));
     }
 
     @Test

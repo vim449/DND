@@ -65,18 +65,24 @@ public class PdfParse {
             for (int i = 0; i < strings.length; i++) {
                 Matcher matches1 = p.matcher(strings[i]);
                 if (matches1.find()) {
-                    int pageNum = Integer.valueOf(matches.group(matches.groupCount()));
+                    int pageNum = Integer.valueOf(matches1.group(matches1.groupCount()));
 
-                    infoTable.put(strings[i].replaceAll(matches.group(matches.groupCount()), ""), pageNum);
+                    infoTable.put(strings[i].replaceAll(matches1.group(matches1.groupCount()), ""), pageNum);
                 }
             }
         }
         String itemToRemove = "";
         switch (info) {
-            case CLASS: itemToRemove = "Classes"; break;
-            case RACE: itemToRemove = "ChoosingaRace"; break;
-            default: break;
-        };
+            case CLASS:
+                itemToRemove = "Classes";
+                break;
+            case RACE:
+                itemToRemove = "ChoosingaRace";
+                break;
+            default:
+                break;
+        }
+        ;
         if (itemToRemove.length() > 0) {
             infoTable.remove(itemToRemove);
         }
