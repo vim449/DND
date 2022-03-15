@@ -15,18 +15,23 @@ public class PdfParse {
     public static void setFilepath(String f) {
         filepath = f;
     }
-    public enum Info {
-		// TODO: Im not sure what spell tier list is, but it might be able
-		// to be added to this with a few changes
-		Class("Classes(.*?)Chapter"),
-		Race("Races(.*?)Chapter"),
-		Equipment("Equipment(.*?)Chapter"),
-		Spell("Spells(.*?)Appendix");
-		public String searchRegex;
-		private Info(String searchRegex) { this.searchRegex = searchRegex;}
-	}
 
-	public static Hashtable<String, Integer> getInfoPages(int tableOfContentsPage, Info info) {
+    public static enum Info {
+        // TODO: Im not sure what spell tier list is, but it might be able
+        // to be added to this with a few changes
+        CLASS("Classes(.*?)Chapter"),
+        RACE("Races(.*?)Chapter"),
+        EQUIPMENT("Equipment(.*?)Chapter"),
+        SPELL("Spells(.*?)Appendix");
+
+        public String searchRegex;
+
+        private Info(String searchRegex) {
+            this.searchRegex = searchRegex;
+        }
+    }
+
+    public static Hashtable<String, Integer> getInfoPages(int tableOfContentsPage, Info info) {
 
         // read in a page number from the pdf
         String pdfText = "";
@@ -58,20 +63,21 @@ public class PdfParse {
 
             // grab the last groups of numbers from the matched groups
             for (int i = 0; i < strings.length; i++) {
-                Matcher matches = p.matcher(strings[i]);
-                if (matches.find()) {
+                Matcher matches1 = p.matcher(strings[i]);
+                if (matches1.find()) {
                     int pageNum = Integer.valueOf(matches.group(matches.groupCount()));
 
                     infoTable.put(strings[i].replaceAll(matches.group(matches.groupCount()), ""), pageNum);
                 }
             }
         }
-        String itemToRemove = switch(info){
-            case Info.Class -> "Classes";
-            case Info.Race -> "ChoosingaRace";
-            default -> "";
-        }
-        if (itemToRemove.length > 0){
+        String itemToRemove = "";
+        switch (info) {
+            case CLASS: itemToRemove = "Classes"; break;
+            case RACE: itemToRemove = "ChoosingaRace"; break;
+            default: break;
+        };
+        if (itemToRemove.length() > 0) {
             infoTable.remove(itemToRemove);
         }
         return infoTable;
@@ -207,15 +213,32 @@ public class PdfParse {
             e.printStackTrace();
         }
 
-        Pattern paraPattern = Pattern.compile("\\. $");
-        Pattern sizePattern = Pattern.compile("^Size.  (.*?)$", Pattern.MULTILINE);
-        Pattern speedPattern = Pattern.compile("^Speed.  (.*?)$", Pattern.MULTILINE);
+        Pattern sizePattern = Pattern.compile("^Size.  .*?([0-9]+)", Pattern.MULTILINE);
+        Pattern speedPattern = Pattern.compile("^Speed.  .*?([0-9]+)", Pattern.MULTILINE);
         Pattern hightPattern = Pattern.compile("(?<=Age).*?([0-9]+)", Pattern.DOTALL);
-        Pattern attributePattern = Pattern.compile("(?<=\\. [\\r\\n])(.*?\\.)");
+        Pattern attributePattern = Pattern.compile("(?<=\\. [\\r\\n])([A-Z].*?\\.)");
 
         System.out.println(pdfText);
         return racesVector;
     }
+
+    public static void getClassInfo(int startingPage, int stopingPage, String className) {
+        String pdfText = "";
+
+        try {
+            PdfReader reader = new PdfReader(filepath);
+            PdfTextExtractor text = new PdfTextExtractor(reader);
+            int pageNum = startingPage;
+            while (pageNum < stopingPage) {
+                pdfText += text.getTextFromPage(pageNum);
+                pageNum++;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println(pdfText);
+    }
+
     // TODO: make a function for class info
     // TODO: make a function for getting bacground
     // TODO: Make ka function for getting equitment stats(?<=\. [\r\n])(.*?\.)
