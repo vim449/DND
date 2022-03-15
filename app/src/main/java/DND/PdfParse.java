@@ -15,52 +15,18 @@ public class PdfParse {
     public static void setFilepath(String f) {
         filepath = f;
     }
+    public enum Info {
+		// TODO: Im not sure what spell tier list is, but it might be able
+		// to be added to this with a few changes
+		Class("Classes(.*?)Chapter"),
+		Race("Races(.*?)Chapter"),
+		Equipment("Equipment(.*?)Chapter"),
+		Spell("Spells(.*?)Appendix");
+		public String searchRegex;
+		private Info(String searchRegex) { this.searchRegex = searchRegex;}
+	}
 
-    public static Hashtable<String, Integer> getClassesPages(int tableOfContentsPage) {
-
-        // read in a page number from the pdf
-        String pdfText = "";
-        try {
-            PdfReader reader = new PdfReader(filepath);
-            PdfTextExtractor text = new PdfTextExtractor(reader);
-            pdfText = text.getTextFromPage(tableOfContentsPage);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        // strip the string off all whitespace and periods
-        pdfText = pdfText.replaceAll(" ", "");
-        pdfText = pdfText.replaceAll("\\.", "");
-
-        // find all the classes in the table of contents
-        Pattern p1 = Pattern.compile("Classes(.*?)Chapter", Pattern.DOTALL);
-        Matcher classes = p1.matcher(pdfText);
-
-        // check to see if there is a match
-        Hashtable<String, Integer> classesTable = new Hashtable<>();
-        if (classes.find()) {
-            // grabbing the string of all the classes from the pdf page text
-            String classesString = classes.group(0);
-
-            // create the regex for parsing the classes string
-            Pattern p = Pattern.compile("([0-9]+)");
-            String strings[] = classesString.split("\\n");
-
-            // grab the last groups of numbers from the matched groups
-            for (int i = 0; i < strings.length; i++) {
-                Matcher matches = p.matcher(strings[i]);
-                if (matches.find()) {
-                    int pageNum = Integer.valueOf(matches.group(matches.groupCount()));
-
-                    classesTable.put(strings[i].replaceAll(matches.group(matches.groupCount()), ""), pageNum);
-                }
-            }
-        }
-        classesTable.remove("Classes");
-        return classesTable;
-    }
-
-    public static Hashtable<String, Integer> getRacesPages(int tableOfContentsPage) {
+	public static Hashtable<String, Integer> getInfoPages(int tableOfContentsPage, Info info) {
 
         // read in a page number from the pdf
         String pdfText = "";
@@ -76,19 +42,19 @@ public class PdfParse {
         pdfText = pdfText.replaceAll(" ", "");
         pdfText = pdfText.replaceAll("\\.", "");
 
-        // find all the races in the table of contents
-        Pattern p1 = Pattern.compile("Races(.*?)Chapter", Pattern.DOTALL);
-        Matcher races = p1.matcher(pdfText);
+        // Find all info matching
+        Pattern p1 = Pattern.compile(info.searchRegex, Pattern.DOTALL);
+        Matcher matches = p1.matcher(pdfText);
 
         // check to see if there is a match
-        Hashtable<String, Integer> racesTable = new Hashtable<>();
-        if (races.find()) {
-            // grabbing the string of all the races from the pdf page text
-            String racesString = races.group(0);
+        Hashtable<String, Integer> infoTable = new Hashtable<>();
+        if (matches.find()) {
+            // grabbing the string of all the matches from the pdf page text
+            String matchesString = matches.group(0);
 
-            // create the regex for parsing the races string
+            // create the regex for parsing the matches string
             Pattern p = Pattern.compile("([0-9]+)");
-            String strings[] = racesString.split("\\n");
+            String strings[] = matchesString.split("\\n");
 
             // grab the last groups of numbers from the matched groups
             for (int i = 0; i < strings.length; i++) {
@@ -96,55 +62,23 @@ public class PdfParse {
                 if (matches.find()) {
                     int pageNum = Integer.valueOf(matches.group(matches.groupCount()));
 
-                    racesTable.put(strings[i].replaceAll(matches.group(matches.groupCount()), ""), pageNum);
+                    infoTable.put(strings[i].replaceAll(matches.group(matches.groupCount()), ""), pageNum);
                 }
             }
         }
-        racesTable.remove("ChoosingaRace");
-        return racesTable;
-    }
-
-    public static Hashtable<String, Integer> getEquipmentPages(int tableOfContentsPage) {
-
-        // read in a page number from the pdf
-        String pdfText = "";
-        try {
-            PdfReader reader = new PdfReader(filepath);
-            PdfTextExtractor text = new PdfTextExtractor(reader);
-            pdfText = text.getTextFromPage(tableOfContentsPage);
-        } catch (IOException e) {
-            e.printStackTrace();
+        String itemToRemove;
+        switch(info){
+            case Info.Class:
+                itemToRemove = "Classes";
+            case Info.Race:
+                itemToRemove = "ChoosingaRace";
+            case default:
+                itemToRemove = "";
         }
-
-        // strip the string off all whitespace and periods
-        pdfText = pdfText.replaceAll(" ", "");
-        pdfText = pdfText.replaceAll("\\.", "");
-
-        // find all the classes in the table of contents
-        Pattern p1 = Pattern.compile("Equipment(.*?)Chapter", Pattern.DOTALL);
-        Matcher equipment = p1.matcher(pdfText);
-
-        // check to see if there is a match
-        Hashtable<String, Integer> equipmentTable = new Hashtable<>();
-        if (equipment.find()) {
-            // grabbing the string of all the classes from the pdf page text
-            String eString = equipment.group(0);
-
-            // create the regex for parsing the classes string
-            Pattern p = Pattern.compile("([0-9]+)");
-            String strings[] = eString.split("\\n");
-
-            // grab the last groups of numbers from the matched groups
-            for (int i = 0; i < strings.length; i++) {
-                Matcher matches = p.matcher(strings[i]);
-                if (matches.find()) {
-                    int pageNum = Integer.valueOf(matches.group(matches.groupCount()));
-
-                    equipmentTable.put(strings[i].replaceAll(matches.group(matches.groupCount()), ""), pageNum);
-                }
-            }
+        if (itemToRemove.length > 0){
+            infoTable.remove(itemToRemove);
         }
-        return equipmentTable;
+        return infoTable;
     }
 
     public static Hashtable<String, Integer> getSpellPages(int tableOfContentsPage) {
