@@ -66,7 +66,7 @@ public class Storage {
         if (!(dirStorePath.exists())) {
             dirStorePath.createNewFile();
             FileOutputStream fileWriter = new FileOutputStream(dirStorePath);
-            fileWriter.write(("{\"classes\":[],\"races\":[],\"backgrounds\":[]}").getBytes());
+            fileWriter.write(("{\"classes\":[],\"races\":[],\"backgrounds\":[],\"characters\":[]}").getBytes());
             fileWriter.close();
         }
 
@@ -84,7 +84,7 @@ public class Storage {
         if (dirStore.getJSONArray("characters") == null) {
             dirStore.put("characters", "[]");
         }
-        FileOutputStream writer = new FileOutputStream(storageDir);
+        FileOutputStream writer = new FileOutputStream(dirStorePath);
         writer.write(dirStore.toString().getBytes());
         writer.close();
 
