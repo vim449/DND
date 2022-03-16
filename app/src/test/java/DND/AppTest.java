@@ -5,8 +5,13 @@ package DND;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Hashtable;
+import java.util.Vector;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import DND.Storeable.StoreableType;
 
 class AppTest {
 
@@ -45,9 +50,20 @@ class AppTest {
     @Test
     @DisplayName("Class Serializer Test")
     public void serialize() throws Exception {
+        Feature feature = new Feature("Test Feature", "This is a test");
+        Feature[] features = { feature };
+        Hashtable<Stat, Profs> saves = new Hashtable<Stat, Profs>();
+        saves.put(Stat.CONSTITUTION, Profs.PROFICIENT);
         Storage.initializeFileSystem();
-        DNDClass testClass = new DNDClass(("test"), Stat.CONSTITUTION);
-        Storage.storeClass(testClass, true);
+        Skill[] skills = { Skill.ACROBATICS, Skill.STEALTH };
+        Vector<String> profs = new Vector<String>();
+        profs.add("Cabbages");
+        DNDClass testClass = new DNDClass("test", features, "1D4", saves, 0, skills, 0, false, false, Stat.CONSTITUTION,
+                profs);
+        Storage.store(testClass, true);
+        System.out.println(testClass.name);
+        System.out.println(feature.getName());
+        System.out.println(feature.getDescription());
     }
 
     @Test
@@ -55,8 +71,13 @@ class AppTest {
     public void deserialize() throws Exception {
         Storage.initializeFileSystem();
         DNDClass classTest;
-        classTest = Storage.retrieveClass("test");
-        System.out.println(classTest.getName());
+        classTest = (DNDClass) Storage.retrieve("test", StoreableType.DNDCLASS);
+        System.out.println(classTest.name);
         System.out.println(classTest.getMainStat());
+        System.out.println(classTest.storeType);
+        Feature[] features = classTest.getFeatures();
+        for (Feature feature : features) {
+            System.out.printf("\n%s\n%s", feature.getName(), feature.getDescription());
+        }
     }
 }

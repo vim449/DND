@@ -83,8 +83,23 @@ public class Storage {
 
     }
 
-    public static boolean storeClass(DNDClass clas, boolean bool) {
-        File file = new File(storageDir + "classes" + s + clas.getName() + ".ser");
+    public static boolean store(Storeable clas, boolean bool) {
+        String storeSpot;
+        switch (clas.storeType) {
+            case DNDCLASS:
+                storeSpot = "Classes";
+                break;
+            case RACE:
+                storeSpot = "Races";
+                break;
+            case BACKGROUND:
+                storeSpot = "Backgrounds";
+                break;
+            default:
+                storeSpot = null;
+                break;
+        }
+        File file = new File(storageDir + storeSpot + s + clas.name + ".ser");
 
         try {
             if (bool || !(file.exists())) {
@@ -93,10 +108,10 @@ public class Storage {
                 out.writeObject(clas);
                 out.close();
                 fileOut.close();
-                if (!checkValueArray(clas.getName(), classArray)) {
-                    classArray.put(clas.getName());
-                    dirStore.remove("classes");
-                    dirStore.put("classes", classArray);
+                if (!checkValueArray(clas.name, classArray)) {
+                    classArray.put(clas.name);
+                    dirStore.remove(storeSpot);
+                    dirStore.put(storeSpot, classArray);
                     File json = new File(storageDir + "dirStorage.json");
                     FileOutputStream jsonWriter = new FileOutputStream(json);
                     jsonWriter.write(dirStore.toString().getBytes());
@@ -111,16 +126,26 @@ public class Storage {
         }
     }
 
-    public static boolean storeClass(DNDClass clas) {
-        return storeClass(clas, false);
+    public static boolean store(DNDClass clas) {
+        return store(clas, false);
     }
 
-    public static DNDClass retrieveClass(String className) throws Exception {
-        DNDClass returnClass;
-        File file = new File(storageDir + "Classes" + s + className + ".ser");
+    public static Storeable retrieve(String className, Storeable.StoreableType type) throws Exception {
+        String retrieveLocation;
+        switch (type) {
+            case DNDCLASS:
+                retrieveLocation = "Classes";
+                break;
+
+            default:
+                retrieveLocation = null;
+                break;
+        }
+        Storeable returnClass;
+        File file = new File(storageDir + retrieveLocation + s + className + ".ser");
         FileInputStream fileIn = new FileInputStream(file);
         ObjectInputStream objIn = new ObjectInputStream(fileIn);
-        returnClass = (DNDClass) objIn.readObject();
+        returnClass = (Storeable) objIn.readObject();
         fileIn.close();
         objIn.close();
         return returnClass;

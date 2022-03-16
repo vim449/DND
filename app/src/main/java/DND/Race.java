@@ -3,8 +3,7 @@ package DND;
 import java.util.Hashtable;
 import java.util.Vector;
 
-public class Race {
-    private char[] name;
+public class Race extends Storeable {
     private char[] subrace; // null means that race has no subrace
     private String[] languages;
     private Feature[] features;
@@ -22,7 +21,7 @@ public class Race {
     // TODO: dragonborn exists (weapon attacks)
     // TODO: tiefling/drow exists (spell-list)
 
-    public Race(char[] name, char[] subrace, String[] languages, Feature[] features,
+    public Race(String name, char[] subrace, String[] languages, Feature[] features,
             Hashtable<Stat, Byte> scoreIncreases, Hashtable<Skill, Profs> skillProficiencies, byte speed, byte age,
             String height, String weightMult, Vector<String> proficiencies) {
         this.name = name;
@@ -36,6 +35,7 @@ public class Race {
         this.height = height;
         this.weightMult = weightMult;
         this.proficiencies = proficiencies;
+        this.storeType = StoreableType.DNDCLASS;
     }
 
     public Hashtable<Skill, Profs> getProficiencies() {

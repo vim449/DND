@@ -3,11 +3,10 @@ package DND;
 import java.util.Hashtable;
 import java.util.Vector;
 
-public class DNDClass implements java.io.Serializable {
+public class DNDClass extends Storeable implements java.io.Serializable {
 
     // fields to store class-specific information
 
-    private String name;
     private char[] subclass;
     private Feature[] features;
     private String hitDie;
@@ -47,11 +46,7 @@ public class DNDClass implements java.io.Serializable {
         this.knowSpells = knowSpells;
         this.mainStat = mainStat;
         this.proficiencies = proficiencies;
-    }
-
-    public DNDClass(String name, Stat mainStat) {
-        this.name = name;
-        this.mainStat = mainStat;
+        this.storeType = StoreableType.DNDCLASS;
     }
 
     public Stat getMainStat() {
@@ -72,5 +67,10 @@ public class DNDClass implements java.io.Serializable {
 
     public String getName() {
         return name;
+    }
+
+    public Feature[] getFeatures() {
+        return features;
+
     }
 }
