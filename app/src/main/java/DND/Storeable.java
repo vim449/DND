@@ -8,7 +8,8 @@ public class Storeable implements Serializable {
     enum StoreableType {
         DNDCLASS,
         RACE,
-        BACKGROUND
+        BACKGROUND,
+        CHARACTER
     }
 
     public StoreableType storeType;

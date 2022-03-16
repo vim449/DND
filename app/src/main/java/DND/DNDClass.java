@@ -31,6 +31,7 @@ public class DNDClass extends Storeable implements java.io.Serializable {
     // TODO: variable for limited use class features like infusions, metagmagics,
     // and invocations?
     // TODO: multiclass required stats?
+    // TODO: Subclasses?
 
     public DNDClass(String name, Feature[] features, String hitDie, Hashtable<Stat, Profs> saves,
             int skillProficiencyNum, Skill[] skillProficiencyOptions, int casting, boolean prepareSpells,

@@ -3,7 +3,7 @@ package DND;
 import java.util.Hashtable;
 import java.util.Vector;
 
-public class Character {
+public class Character extends Storeable {
     Roll roll; // TODO, make constructor that supports seeding this
 
     public enum Alignment {
@@ -19,7 +19,6 @@ public class Character {
     private char[] bonds;
     private char[] traits;
     private char[] flaws;
-    private char[] name;
     private short age;
     private short height; // inches
     private short weight; // pounds
@@ -58,7 +57,7 @@ public class Character {
     private short maxHP;
     private int gp;
 
-    public Character(DNDClass dndclass, Race race, String background, char[] name, Alignment alignment) {
+    public Character(DNDClass dndclass, Race race, String background, String name, Alignment alignment) {
         this.dndclass = dndclass;
         this.subclass = dndclass.getSubclass();
         this.race = race;
@@ -105,6 +104,7 @@ public class Character {
         maxHP = (byte) (Byte.valueOf(hitDice.substring(hitDice.indexOf("d") + 1)) + modifiers.get(Stat.CONSTITUTION));
 
         // TODO: equipment, proficiencies, features, and gp
+        this.storeType = StoreableType.CHARACTER;
     }
 
     private void calcModifiers() {
