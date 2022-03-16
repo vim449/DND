@@ -3,8 +3,7 @@ package DND;
 import java.util.Hashtable;
 import java.util.Vector;
 
-public class Background {
-    private char[] name;
+public class Background extends Storeable {
     private String[] languages;
     private Equipment[] startingEquipment;
     private int gp;
@@ -18,4 +17,9 @@ public class Background {
     private String[] ideal;
     private String[] bond;
     private String[] flaw;
+
+    public Background(String name) {
+        this.name = name;
+        this.storeType = StoreableType.BACKGROUND;
+    }
 }

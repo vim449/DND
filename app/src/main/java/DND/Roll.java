@@ -1,9 +1,10 @@
 package DND;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Random;
 
-public class Roll {
+public class Roll implements Serializable {
     private final Random random;
 
     public Roll() {
