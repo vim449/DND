@@ -178,7 +178,7 @@ public class PdfParse {
         Pattern sizePattern = Pattern.compile("^Size.  .*?([0-9]+)", Pattern.MULTILINE);
         Pattern speedPattern = Pattern.compile("^Speed.  .*?([0-9]+)", Pattern.MULTILINE);
         Pattern hightPattern = Pattern.compile("(?<=Age).*?([0-9]+)", Pattern.DOTALL);
-        Pattern attributePattern = Pattern.compile("(?<=\\. [\\r\\n])(.*?\\.)");
+        Pattern attributePattern = Pattern.compile("(?<=\\. [\\r\\n])(.*?\\.)"); //So you are basicly going to need to do something like Speed.*?(?<=\\. [\\r\\n])(.*?\\.)
 
         Matcher sizeMatch = sizePattern.matcher(pdfText);
         Matcher speedMatcher = speedPattern.matcher(pdfText);
@@ -207,6 +207,11 @@ public class PdfParse {
         System.out.println(pdfText);
 
         Pattern hitDiePattern = Pattern.compile("(?<=Hit  Dice:).*([1-9]d[0-9]+)");
+        Pattern armorPattern = Pattern.compile("(?<=Armor:)(.*)(?=Weapons)", Pattern.DOTALL); //will need splitting later
+        Pattern weaponsPattern = Pattern.compile("(?<=Weapons:)(.*)(?=Tools)", Pattern.DOTALL); // will need splitting later
+        Pattern toolsPattern = Pattern.compile("(?<=Tools:)(.*)(?=Saving)", Pattern.DOTALL);// ''
+        Pattern savingPattern = Pattern.compile("(?<=Throws:)(.*)(?=Skills)", Pattern.DOTALL);
+        Pattern skillsPattern = Pattern.compile("(?<=Skills:)(.*?)(?=E)", Pattern.DOTALL);
     }
 
     // TODO: make a function for getting bacground
