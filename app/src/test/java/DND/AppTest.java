@@ -19,7 +19,7 @@ class AppTest {
     @DisplayName("Pdf Parsing")
     void pdf() {
         PdfParse.setFilepath("C:/Users/thoma/Documents/School/D&D 5e - Players Handbook.pdf");
-        assertNotEquals(null, PdfParse.getSpellPages(2));
+        assertNotEquals(null, PdfParse.getInfoPages(2, PdfParse.Info.CLASS));
     }
 
     @Test

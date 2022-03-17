@@ -17,8 +17,6 @@ public class PdfParse {
     }
 
     public static enum Info {
-        // TODO: Im not sure what spell tier list is, but it might be able
-        // to be added to this with a few changes
         CLASS("Classes(.*?)Chapter"),
         RACE("Races(.*?)Chapter"),
         EQUIPMENT("Equipment(.*?)Chapter"),
@@ -87,49 +85,6 @@ public class PdfParse {
             infoTable.remove(itemToRemove);
         }
         return infoTable;
-    }
-
-    public static Hashtable<String, Integer> getSpellPages(int tableOfContentsPage) {
-
-        // read in a page number from the pdf
-        String pdfText = "";
-        try {
-            PdfReader reader = new PdfReader(filepath);
-            PdfTextExtractor text = new PdfTextExtractor(reader);
-            pdfText = text.getTextFromPage(tableOfContentsPage);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        // strip the string off all whitespace and periods
-        pdfText = pdfText.replaceAll(" ", "");
-        pdfText = pdfText.replaceAll("\\.", "");
-
-        // find all the classes in the table of contents
-        Pattern p1 = Pattern.compile("Spells(.*?)Appendix", Pattern.DOTALL);
-        Matcher spells = p1.matcher(pdfText);
-
-        // check to see if there is a match
-        Hashtable<String, Integer> spellTable = new Hashtable<>();
-        if (spells.find()) {
-            // grabbing the string of all the classes from the pdf page text
-            String spellString = spells.group(0);
-
-            // create the regex for parsing the classes string
-            Pattern p = Pattern.compile("([0-9]+)");
-            String strings[] = spellString.split("\\n");
-
-            // grab the last groups of numbers from the matched groups
-            for (int i = 0; i < strings.length; i++) {
-                Matcher matches = p.matcher(strings[i]);
-                if (matches.find()) {
-                    int pageNum = Integer.valueOf(matches.group(matches.groupCount()));
-
-                    spellTable.put(strings[i].replaceAll(matches.group(matches.groupCount()), ""), pageNum);
-                }
-            }
-        }
-        return spellTable;
     }
 
     public static Vector<Vector<String>> getSpellTierList(int startingPageNum, String className) {
@@ -203,8 +158,9 @@ public class PdfParse {
 
     }
 
-    public static Vector<Race> getRaceInfo(int startingPage, int stopingPage, String raceName) {
-        Vector<Race> racesVector = new Vector<>();
+    public static Vector<Race> getRaceInfo(int startingPage, int stopingPage, String raceName) { // TODO: make this parse for things in the race class @yomas000 & @CobaltGoldCS
+        Vector<Race> racesVector = new Vector<>();                                                                                         
+        
         String pdfText = "";
 
         try {
@@ -222,7 +178,12 @@ public class PdfParse {
         Pattern sizePattern = Pattern.compile("^Size.  .*?([0-9]+)", Pattern.MULTILINE);
         Pattern speedPattern = Pattern.compile("^Speed.  .*?([0-9]+)", Pattern.MULTILINE);
         Pattern hightPattern = Pattern.compile("(?<=Age).*?([0-9]+)", Pattern.DOTALL);
-        Pattern attributePattern = Pattern.compile("(?<=\\. [\\r\\n])([A-Z].*?\\.)");
+        Pattern attributePattern = Pattern.compile("(?<=\\. [\\r\\n])(.*?\\.)");
+
+        Matcher sizeMatch = sizePattern.matcher(pdfText);
+        Matcher speedMatcher = speedPattern.matcher(pdfText);
+        Matcher hightMatcher = hightPattern.matcher(pdfText);
+        Matcher featureMatcher = attributePattern.matcher(pdfText);
 
         System.out.println(pdfText);
         return racesVector;
@@ -238,14 +199,16 @@ public class PdfParse {
             while (pageNum < stopingPage) {
                 pdfText += text.getTextFromPage(pageNum);
                 pageNum++;
+                
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
         System.out.println(pdfText);
+
+        Pattern hitDiePattern = Pattern.compile("(?<=Hit  Dice:).*([1-9]d[0-9]+)");
     }
 
-    // TODO: make a function for class info
     // TODO: make a function for getting bacground
-    // TODO: Make ka function for getting equitment stats(?<=\. [\r\n])(.*?\.)
+    // TODO: Make a function for getting equitment stats
 }
