@@ -58,14 +58,15 @@ public class PdfParse {
             // create the regex for parsing the matches string
             Pattern p = Pattern.compile("([0-9]+)");
             String strings[] = matchesString.split("\\n");
+            
 
             // grab the last groups of numbers from the matched groups
             for (int i = 0; i < strings.length; i++) {
                 Matcher matches1 = p.matcher(strings[i]);
                 if (matches1.find()) {
-                    int pageNum = Integer.valueOf(matches1.group(matches1.groupCount()));
+                    String pageNumberString = matches1.group(matches1.groupCount());
 
-                    infoTable.put(strings[i].replaceAll(matches1.group(matches1.groupCount()), ""), pageNum);
+                    infoTable.put(strings[i].replaceAll(pageNumberString, ""), Integer.valueOf(pageNumberString));
                 }
             }
         }
@@ -177,12 +178,12 @@ public class PdfParse {
 
         Pattern sizePattern = Pattern.compile("^Size.  .*?([0-9]+)", Pattern.MULTILINE);
         Pattern speedPattern = Pattern.compile("^Speed.  .*?([0-9]+)", Pattern.MULTILINE);
-        Pattern hightPattern = Pattern.compile("(?<=Age).*?([0-9]+)", Pattern.DOTALL);
+        Pattern heightPattern = Pattern.compile("(?<=Age).*?([0-9]+)", Pattern.DOTALL);
         Pattern attributePattern = Pattern.compile("(?<=\\. [\\r\\n])(.*?\\.)"); //So you are basicly going to need to do something like Speed.*?(?<=\\. [\\r\\n])(.*?\\.)
 
         Matcher sizeMatch = sizePattern.matcher(pdfText);
         Matcher speedMatcher = speedPattern.matcher(pdfText);
-        Matcher hightMatcher = hightPattern.matcher(pdfText);
+        Matcher heightMatcher = heightPattern.matcher(pdfText);
         Matcher featureMatcher = attributePattern.matcher(pdfText);
 
         System.out.println(pdfText);
